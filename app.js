@@ -4,30 +4,43 @@ const usUnitParameter = "us";
 // I set the unit group to default to "metric"
 async function fetchWeather(location, unitGroup="metric"){
     
+    if(!location){
+        return;
+    }
+    
+    location = location.trim();
     const key = `VEKGK4ZAPZSEW872SDTYJN7EY`;
     const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=${unitGroup}&key=${key}`
 
-    try{
+    try {
         let response = await fetch(url, {mode: 'cors',});
-        const weatherData = response.json();
+        const weatherData = await response.json();
+        const days = weatherData.days;
 
-        weatherData.then(weatherData =>{
-            const days = weatherData.days;
-            
-            days.forEach(day => {
-                console.log(day.datetime);
-                console.log(day.temp);
-                console.log(day.feelslike);
-                console.log(day.windspeed);
-
-            });
-        })
-
+        return days;
 
     } catch(error){
-        console.log(`Error: ${error}`);
+        console.error(`Error: ${error}`);
     }
     
 }
 
-fetchWeather("stockholmn");
+function getDayName(dateString){
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const date = new Date(dateString);
+    
+    // getDay() returns a number between 0-6, with that I access the correct day from the daysOfWeek array
+    return daysOfWeek[date.getDay()];
+}
+
+
+fetchWeather("stockholm").then(days => {
+            
+    days.forEach(day => {
+        console.log(getDayName(day.datetime));
+        console.log(day.temp);
+        console.log(day.feelslike);
+        console.log(day.windspeed);
+
+    });
+})
