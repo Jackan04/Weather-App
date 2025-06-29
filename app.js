@@ -34,13 +34,19 @@ function getDayName(dateString){
 }
 
 
-fetchWeather("stockholm").then(days => {
-            
+fetchWeather("london").then(days => {
+          
     days.forEach(day => {
-        console.log(getDayName(day.datetime));
-        console.log(day.temp);
-        console.log(day.feelslike);
-        console.log(day.windspeed);
+        console.log
+        (
+        // Name of the current day
+        ` ${getDayName(day.datetime)} 
+         \nTemp: ${day.temp}°C
+         \nPrecipitation: ${day.precip}%
+         \nWind Speed:${day.windspeed} m/s
+         ` 
+
+    );
 
     });
 })

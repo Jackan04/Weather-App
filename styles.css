@@ -1,5 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root{
+    --border-radius: 10px;
+    --padding-small: 10px;
+    --padding-large: 20px;
+    --transition: 0.2s ease-in-out;
+    
+    --bg: #fff;
+    --bg-blue: #EEF7FE;
+    --border: #CCCCCC;
+    
+    --text-regular: #131417;
+    --text-blue: #008DFF;
+    --text-grey: #787878;
+
+    --size-p: 1rem;
+    --size-h1: 2.5rem;
+    --size-h2: 2rem;
+
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body{
+      font-family: "Inter", sans-serif;
+      height: 100vh;
+}
+
+header{
+    display: flex;
+    justify-content: space-around;
+    padding: var(--padding-large);
+}
+
+main{
+
+}
+
+footer{
+
+}
+
+input{
+    border: none;
+    border: 3px solid var(--border);
+    border-radius: var(--border-radius);
+    padding: var(--padding-small);
+    width: 400px;
+}
+
+button{
+    border: none;
+    border-radius: var(--border-radius);
+    padding: var(--padding-small);
+}
+
+button:hover, input:hover{
+
+}
+
+input:focus{
+    outline: none;
+}
+
+
+
+.divider{
+    height: 3px;
+    color: var(--border);
+}
+
+#logo{
+    color: var(--text-grey);
 }
