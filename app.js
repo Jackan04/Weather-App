@@ -1,5 +1,10 @@
 const metricUnitParameter = "metric";
 const usUnitParameter = "us";
+const inputSearchField = document.querySelector("#inputSearchField");
+const buttonSearch = document.querySelector("#buttonSearch");
+const locationElement = document.querySelector("#locationEl");
+
+
 
 // I set the unit group to default to "metric"
 async function fetchWeather(location, unitGroup="metric"){
@@ -34,7 +39,84 @@ function getDayName(dateString){
 }
 
 
-fetchWeather("london").then(days => {
+
+
+function renderWeatherData(days, location){
+    const main = document.querySelector("main");
+    const table = createTable();
+
+
+    // The array with all the days passed as an argument on function call
+    days.forEach(day => {
+        const tableRow = document.createElement("tr");
+        
+        const tableDataDay = document.createElement("td");
+        tableDataDay.textContent = getDayName(day.datetime);
+        
+        const tableDataTemp = document.createElement("td");
+        tableDataTemp.textContent = `${day.temp}°C`;
+        
+        const tableDataPrecip = document.createElement("td");
+        tableDataPrecip.textContent = `${day.precip}%`;
+        
+        const tableDataWind = document.createElement("td");
+        tableDataWind.textContent = `${day.windspeed} m/s`;
+
+        locationElement.textContent = location
+        
+        tableRow.appendChild(tableDataDay);
+        tableRow.appendChild(tableDataTemp);
+        tableRow.appendChild(tableDataPrecip);
+        tableRow.appendChild(tableDataWind);
+        
+        
+        table.appendChild(tableRow);
+    });
+    locationElement.textContent = location;
+    
+    
+    main.appendChild(table);
+}
+
+function createTable(){
+    const table = document.createElement("table");
+
+    const tableHeader = document.createElement("tr");
+    tableHeader.setAttribute("class", "tableHead");
+    
+    const tableHeadDay = document.createElement("th");
+    tableHeadDay.setAttribute("id", "thDay");
+    tableHeadDay.textContent = "Day"
+    
+    const tableHeadTemp = document.createElement("th");
+    tableHeadTemp.setAttribute("id", "thTemp");
+    tableHeadTemp.textContent = "Temperature"
+    
+    const tableHeadPrecip = document.createElement("th");
+    tableHeadPrecip.setAttribute("id", "thPrecip");
+    tableHeadPrecip.textContent = "Precipitation"
+    
+    const tableHeadWind = document.createElement("th");
+    tableHeadWind.setAttribute("id", "thWind");
+    tableHeadWind.textContent = "Wind"
+
+    tableHeader.appendChild(tableHeadDay);
+    tableHeader.appendChild(tableHeadTemp);
+    tableHeader.appendChild(tableHeadPrecip);
+    tableHeader.appendChild(tableHeadWind);
+    table.appendChild(tableHeader);
+
+    return table;
+
+
+}
+
+
+buttonSearch.addEventListener("click", () => {
+    const location = inputSearchField.value;
+    
+
+    fetchWeather(location).then(days => {
           
     days.forEach(day => {
         console.log
@@ -46,7 +128,14 @@ fetchWeather("london").then(days => {
          \nWind Speed:${day.windspeed} m/s
          ` 
 
-    );
+        );
+  
+
 
     });
+
+    inputSearchField.value = "";
+
+    renderWeatherData(days, location);
+});
 })
