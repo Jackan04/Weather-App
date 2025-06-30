@@ -2,7 +2,7 @@ const metricUnitParameter = "metric";
 const usUnitParameter = "us";
 const inputSearchField = document.querySelector("#inputSearchField");
 const buttonSearch = document.querySelector("#buttonSearch");
-const locationElement = document.querySelector("#locationEl");
+const main = document.querySelector("main");
 
 
 
@@ -15,7 +15,7 @@ async function fetchWeather(location, unitGroup="metric"){
     
     location = location.trim();
     const key = `VEKGK4ZAPZSEW872SDTYJN7EY`;
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=${unitGroup}&key=${key}`
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/next9days?unitGroup=${unitGroup}&key=${key}`
 
     try {
         let response = await fetch(url, {mode: 'cors',});
@@ -41,9 +41,14 @@ function getDayName(dateString){
 
 
 
-function renderWeatherData(days, location){
-    const main = document.querySelector("main");
+function renderTableData(days, location){
+    main.innerHTML = "";
     const table = createTable();
+
+    const tableHeading = document.createElement("h2");
+    tableHeading.setAttribute("class", "textGrey");
+    tableHeading.textContent = `Next 10 days in ${location}`
+    
 
 
     // The array with all the days passed as an argument on function call
@@ -54,15 +59,15 @@ function renderWeatherData(days, location){
         tableDataDay.textContent = getDayName(day.datetime);
         
         const tableDataTemp = document.createElement("td");
-        tableDataTemp.textContent = `${day.temp}°C`;
+        tableDataTemp.textContent = `${Math.round(day.temp)}°C`;
         
         const tableDataPrecip = document.createElement("td");
-        tableDataPrecip.textContent = `${day.precip}%`;
+        tableDataPrecip.textContent = `${Math.round(day.precip)}%`;
         
         const tableDataWind = document.createElement("td");
-        tableDataWind.textContent = `${day.windspeed} m/s`;
+        tableDataWind.textContent = `${Math.round(day.windspeed)} m/s`;
 
-        locationElement.textContent = location
+    
         
         tableRow.appendChild(tableDataDay);
         tableRow.appendChild(tableDataTemp);
@@ -72,11 +77,11 @@ function renderWeatherData(days, location){
         
         table.appendChild(tableRow);
     });
-    locationElement.textContent = location;
-    
-    
+    main.appendChild(tableHeading);
     main.appendChild(table);
 }
+
+
 
 function createTable(){
     const table = document.createElement("table");
@@ -115,27 +120,25 @@ function createTable(){
 buttonSearch.addEventListener("click", () => {
     const location = inputSearchField.value;
     
+    if(!location){
+        return;
+    }
 
     fetchWeather(location).then(days => {
-          
-    days.forEach(day => {
-        console.log
-        (
-        // Name of the current day
-        ` ${getDayName(day.datetime)} 
-         \nTemp: ${day.temp}°C
-         \nPrecipitation: ${day.precip}%
-         \nWind Speed:${day.windspeed} m/s
-         ` 
-
-        );
-  
-
+        renderTableData(days, location);
 
     });
 
-    inputSearchField.value = "";
-
-    renderWeatherData(days, location);
-});
+inputSearchField.value = "";
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+    const defaultLocation = "Stockholm";
+    
+    fetchWeather(defaultLocation).then(days => {
+        renderTableData(days, defaultLocation);
+    
+    });
+});
+
+ 
