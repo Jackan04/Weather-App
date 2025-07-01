@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-:root{
+/* ===== CSS VARIABLES ===== */
+:root {
     --border-radius: 10px;
     --padding-small: 10px;
     --padding-large: 20px;
     --transition: 0.2s ease-in-out;
-    
+
     --bg: #fff;
     --bg-blue: #EEF7FE;
     --border: #CCCCCC;
-    
+
     --text-regular: #131417;
     --text-blue: #008DFF;
     --text-grey: #787878;
@@ -17,22 +18,25 @@
     --size-p: 1rem;
     --size-h1: 2.5rem;
     --size-h2: 2rem;
-
 }
 
+/* ===== RESET ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
-      font-family: "Inter", sans-serif;
-      height: 100vh;
-
+/* ===== BODY ===== */
+body {
+    font-family: "Inter", sans-serif;
+    height: 100vh;
+    background: var(--bg);
+    color: var(--text-regular);
 }
 
-header{
+/* ===== HEADER ===== */
+header {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -40,27 +44,32 @@ header{
     border-bottom: 2px solid var(--border);
     margin-bottom: 4rem;
     flex-wrap: wrap;
-    gap: var(--padding-large)
+    gap: var(--padding-large);
 }
 
-main{
+#logo {
+    color: var(--text-grey);
+    font-weight: 500;
+}
+
+#logo:hover{
+    color: var(--text-blue);
+}
+
+header > div {
+    display: flex;
+    gap: 15px;
+}
+
+/* ===== MAIN ===== */
+main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-
-    
-
-
-
-    
 }
 
-footer{
-
-}
-
+/* ===== TABLE ===== */
 table {
     width: 100%;
     max-width: 1000px;
@@ -69,6 +78,7 @@ table {
     border-radius: var(--border-radius);
     margin: 40px;
     overflow: hidden;
+    background: var(--bg);
 }
 
 th, td {
@@ -93,22 +103,23 @@ tr:last-child td {
     border-bottom: none;
 }
 
-input{
-    border: none;
+/* ===== FORM ELEMENTS ===== */
+input {
     border: 2px solid var(--border);
     border-radius: var(--border-radius);
     padding: var(--padding-small);
-     width: 415px;
+    width: 350px;
     height: 46px;
     font-size: var(--size-p);
     transition: var(--transition);
 }
 
-ul{
-    list-style: none;
+input:focus {
+    outline: none;
+    border: 2px solid var(--text-blue);
 }
 
-button{
+button {
     border: none;
     border-radius: var(--border-radius);
     padding: var(--padding-small);
@@ -116,47 +127,48 @@ button{
     height: 46.86px;
     font-size: var(--size-p);
     transition: var(--transition);
+    background-color: var(--bg-blue);
+    color: var(--text-blue);
 }
 
-footer{
-    padding: var(--padding-large);
-    background-color: #F1F1F1;
-}
-
-header > div{
-    display: flex;
-    gap: 15px;
-}
-
-button:hover{
+button:hover {
     cursor: pointer;
     opacity: 0.7;
 }
 
-input:focus{
-    outline: none;
-    border: 2px solid var(--text-blue);
-}
-
-
-#logo{
+/* ===== UTILITY CLASSES ===== */
+.textGrey {
     color: var(--text-grey);
     font-weight: 500;
 }
 
-.textGrey{
-    color: var(--text-grey);
-    font-weight: 500;
+.textDanger{
+    color: #EC6A5B;
 }
 
-#generalInfoContainer{
+/* ===== FOOTER ===== */
+footer {
+    padding: var(--padding-large);
+    background-color: #F1F1F1;
+    text-align: center;
+
+}
+
+/* ===== MISC ===== */
+ul {
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+/* Container for general info if needed in the future */
+#generalInfoContainer {
     background-color: #F1F1F1;
     padding: var(--padding-large);
-    border-radius: var(--border-radius);
+    border-radius: var(--border)
 }
 
-#buttonSearch{
-    background-color: var(--bg-blue);
-    color: var(--text-blue);
-   
-}
+
+
