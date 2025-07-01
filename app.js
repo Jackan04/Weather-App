@@ -46,10 +46,9 @@ function renderTableData(days, location){
     const table = createTable();
 
     const tableHeading = document.createElement("h2");
+    const choosenLocation = document.createElement("p");
     tableHeading.setAttribute("class", "textGrey");
     tableHeading.textContent = `Next 10 days in ${location}`
-    
-
 
     // The array with all the days passed as an argument on function call
     days.forEach(day => {
@@ -57,6 +56,9 @@ function renderTableData(days, location){
         
         const tableDataDay = document.createElement("td");
         tableDataDay.textContent = getDayName(day.datetime);
+
+        const tableDataCondition = document.createElement("td");
+        tableDataCondition.textContent = day.conditions;
         
         const tableDataTemp = document.createElement("td");
         tableDataTemp.textContent = `${Math.round(day.temp)}°C`;
@@ -70,9 +72,11 @@ function renderTableData(days, location){
     
         
         tableRow.appendChild(tableDataDay);
+        tableRow.appendChild(tableDataCondition);
         tableRow.appendChild(tableDataTemp);
         tableRow.appendChild(tableDataPrecip);
         tableRow.appendChild(tableDataWind);
+
         
         
         table.appendChild(tableRow);
@@ -92,6 +96,10 @@ function createTable(){
     const tableHeadDay = document.createElement("th");
     tableHeadDay.setAttribute("id", "thDay");
     tableHeadDay.textContent = "Day"
+
+    const tableHeadCondition = document.createElement("th");
+    tableHeadCondition.setAttribute("id", "thCondition");
+    tableHeadCondition.textContent = "Condition"
     
     const tableHeadTemp = document.createElement("th");
     tableHeadTemp.setAttribute("id", "thTemp");
@@ -106,6 +114,7 @@ function createTable(){
     tableHeadWind.textContent = "Wind"
 
     tableHeader.appendChild(tableHeadDay);
+    tableHeader.appendChild(tableHeadCondition);
     tableHeader.appendChild(tableHeadTemp);
     tableHeader.appendChild(tableHeadPrecip);
     tableHeader.appendChild(tableHeadWind);

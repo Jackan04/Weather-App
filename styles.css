@@ -29,7 +29,7 @@
 body{
       font-family: "Inter", sans-serif;
       height: 100vh;
-      margin: 30px;
+
 }
 
 header{
@@ -67,7 +67,7 @@ table {
     border-collapse: collapse;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: var(--border-radius);
-    margin-top: 20px;
+    margin: 40px;
     overflow: hidden;
 }
 
@@ -100,6 +100,7 @@ input{
     padding: var(--padding-small);
      width: 415px;
     height: 46px;
+    font-size: var(--size-p);
     transition: var(--transition);
 }
 
@@ -115,6 +116,11 @@ button{
     height: 46.86px;
     font-size: var(--size-p);
     transition: var(--transition);
+}
+
+footer{
+    padding: var(--padding-large);
+    background-color: #F1F1F1;
 }
 
 header > div{
